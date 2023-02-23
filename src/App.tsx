@@ -6,7 +6,7 @@ import { TiVideo } from 'react-icons/ti';
 import { RiBubbleChartFill } from 'react-icons/ri';
 import 'react-quill/dist/quill.snow.css';
 import { Popover, Transition } from '@headlessui/react';
-import Modal from './components/modal';
+import Modal from './components/common/modal';
 
 const solutions = [
   {

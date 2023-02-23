@@ -6,7 +6,7 @@ import 'react-quill/dist/quill.snow.css';
 function App() {
   const [content, setContent] = useState('');
 
-  const modules = {
+  const modules: Record<string, any> = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
       ['link', 'image'],
@@ -17,7 +17,7 @@ function App() {
     ],
   };
 
-  const formats = [
+  const formats: string[] = [
     'header',
     'link',
     'image',
@@ -54,7 +54,6 @@ function App() {
             modules={modules}
             formats={formats}
             ref={editorRef}
-            className=''
           />
         </div>
         <div className='add_btn'>

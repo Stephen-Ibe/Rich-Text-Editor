@@ -9,6 +9,10 @@
   /* width: 100% !important; */
   /* position: absolute; */
 }
+.ql-editor {
+  margin-bottom: 8px !important;
+}
+
 @layer utilities {
   .add_btn {
     @apply absolute border rounded-full p-1 left-2 bottom-2 cursor-pointer;

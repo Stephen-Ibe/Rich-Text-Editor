@@ -4,5 +4,14 @@
 
 .ql-container.ql-snow {
   border: 0px;
-  min-height: 200px !important;
+  padding: 0px 0px 20px 0px;
+  /* min-height: 200px !important; */
+  /* width: 100% !important; */
+  /* position: absolute; */
+}
+@layer utilities {
+  .add_btn {
+    @apply absolute border rounded-full p-1 left-2 bottom-2 cursor-pointer;
+    background: #fafafa;
+  }
 }

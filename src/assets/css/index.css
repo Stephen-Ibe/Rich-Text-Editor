@@ -10,12 +10,15 @@
   /* position: absolute; */
 }
 .ql-editor {
-  margin-bottom: 8px !important;
+  margin-bottom: 12px !important;
 }
 
 @layer utilities {
   .add_btn {
-    @apply absolute border rounded-full p-1 left-2 bottom-2 cursor-pointer;
-    background: #fafafa;
+    @apply absolute left-2 bottom-2 cursor-pointer outline-none focus:outline-none focus:border-0;
+  }
+  .btn {
+    @apply rounded-full p-2 outline-none;
+    background: #d6f4e1;
   }
 }

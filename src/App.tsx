@@ -7,6 +7,7 @@ import { RiBubbleChartFill } from 'react-icons/ri';
 import 'react-quill/dist/quill.snow.css';
 import { Popover, Transition } from '@headlessui/react';
 import Modal from './components/common/modal';
+import UploadPicture from './components/blocks/UploadPictures';
 
 const solutions = [
   {
@@ -146,7 +147,7 @@ function App() {
           )}
         </div>
       </div>
-      {choice === 'picture' && <Modal isOpen closeModal={closeModal} />}
+      {choice === 'picture' && <UploadPicture closeModal={closeModal} />}
     </>
   );
 }

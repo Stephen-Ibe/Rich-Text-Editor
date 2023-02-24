@@ -6,13 +6,12 @@ import { TiVideo } from 'react-icons/ti';
 import { RiBubbleChartFill } from 'react-icons/ri';
 import 'react-quill/dist/quill.snow.css';
 import { Popover, Transition } from '@headlessui/react';
-import Modal from './components/common/modal';
 import UploadPicture from './components/blocks/UploadPictures';
 
 const solutions = [
   {
     name: 'Picture',
-    description: 'JPEG, PNG, SVG',
+    description: 'JPEG, PNG',
     value: 'picture',
     icon: <AiFillPicture size={28} />,
   },

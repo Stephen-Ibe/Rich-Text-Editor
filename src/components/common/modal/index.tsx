@@ -38,7 +38,7 @@ const Modal = ({ isOpen, closeModal, children }: Props) => {
               <Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl transition-all'>
                 <Dialog.Title
                   as='h3'
-                  className='text-lg font-medium leading-6 text-gray-900 flex justify-between items-center w-full'
+                  className='text-base font-bold leading-6 text-gray-900 flex justify-between items-center w-full'
                 >
                   Embed
                   <div className='cursor-pointer' onClick={closeModal}>

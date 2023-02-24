@@ -2,12 +2,12 @@ import React from 'react';
 import { Uploader } from 'rsuite';
 
 type Props = {
-  action: string;
+  action?: string;
 };
 
-const Upload = ({ action }: Props) => {
+const Upload = ({ action = '' }: Props) => {
   return (
-    <Uploader action={action} draggable>
+    <Uploader action={action} draggable accept='image/png, image/jpeg'>
       <div
         style={{
           height: 200,

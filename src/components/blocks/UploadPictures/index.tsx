@@ -21,10 +21,13 @@ const UploadPicture = ({
         <div className='my-4'>
           <p className='font-semibold'>Upload Image</p>
         </div>
-        <input type='file' accept='image/*' onChange={handleImageUpload} />
-        <div className='space-x-4'>
+        <div className='border-2 h-[200px] flex items-center justify-center border-dotted border-green-500'>
+          <input type='file' accept='image/*' onChange={handleImageUpload} />
+        </div>
+
+        <div className='space-x-4 mt-4'>
           <button
-            className='py-2 border px-4 rounded bg-green-600 text-white font-semibold'
+            className='py-2 border-0 px-4 rounded bg-green-600 text-white font-semibold outline-none'
             onClick={insertImage}
           >
             Embed

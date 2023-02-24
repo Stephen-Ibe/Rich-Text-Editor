@@ -89,7 +89,6 @@ function App() {
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.files);
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -141,7 +140,7 @@ function App() {
                   leaveFrom='opacity-100 translate-y-0'
                   leaveTo='opacity-0 translate-y-1'
                 >
-                  <Popover.Panel className='absolute left-48 z-10 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl'>
+                  <Popover.Panel className='absolute left-48 z-10 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-sm'>
                     <div className='overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5'>
                       <div className='bg-gray-50 p-4'>
                         <h3 className='text-sm'>Embeds</h3>

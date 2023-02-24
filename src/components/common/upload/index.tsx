@@ -12,7 +12,8 @@ const Upload = ({ action = '', handleFileChange }: Props) => {
       action={action}
       draggable
       accept='image/png, image/jpeg'
-      onChange={handleFileChange}
+      fileListVisible={false}
+      onChange={(fileList:any) => handleFileChange(fileList)}
     >
       <div
         style={{

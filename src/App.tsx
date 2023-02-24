@@ -32,14 +32,9 @@ const solutions = [
 function App() {
   const [content, setContent] = useState('');
   const [choice, setChoice] = useState<string | unknown | null>(null);
-
-  function closeModal() {
-    setChoice(null);
-  }
-
-  function openModal(choice: string) {
-    setChoice(choice);
-  }
+  const [imageUrl, setImageUrl] = useState('');
+  const [selection, setSelection] = useState({ index: 0, length: 0 });
+  const editorRef = useRef<ReactQuill | null>(null);
 
   const modules: Record<string, any> = {
     toolbar: [
@@ -66,12 +61,44 @@ function App() {
     'bullet',
   ];
 
-  const inputChange = (value: string) => {
-    setContent(value);
-    console.log(value);
+  function closeModal() {
+    setChoice(null);
+  }
+
+  function openModal(choice: string) {
+    setChoice(choice);
+  }
+
+  const handleChange = (editor: any) => {
+    setSelection(editor.getSelection());
   };
 
-  const editorRef = useRef<ReactQuill>(null);
+  const inputChange = (value: string) => {
+    setContent(value);
+  };
+
+  const insertImage = () => {
+    const editor = editorRef.current?.getEditor();
+    if (editor) {
+      const range = selection.index + selection.length;
+      editor.insertEmbed(range, 'image', imageUrl, 'user');
+      editor.setSelection(range + 1, 0);
+    }
+
+    closeModal();
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.files);
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setImageUrl(event.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   useEffect(() => {
     editorRef?.current?.focus();
@@ -119,7 +146,7 @@ function App() {
                       <div className='bg-gray-50 p-4'>
                         <h3 className='text-sm'>Embeds</h3>
                       </div>
-                      <div className='relative grid bg-white lg:grid-cols-2'>
+                      <div className='relative grid bg-white lg:grid-cols-1'>
                         {solutions.map(({ icon, value, name, description }) => (
                           <div
                             key={name}
@@ -146,7 +173,13 @@ function App() {
           )}
         </div>
       </div>
-      {choice === 'picture' && <UploadPicture closeModal={closeModal} />}
+      {choice === 'picture' && (
+        <UploadPicture
+          closeModal={closeModal}
+          handleImageUpload={handleImageUpload}
+          insertImage={insertImage}
+        />
+      )}
     </>
   );
 }

@@ -3,11 +3,17 @@ import { Uploader } from 'rsuite';
 
 type Props = {
   action?: string;
+  handleFileChange(file: any): void;
 };
 
-const Upload = ({ action = '' }: Props) => {
+const Upload = ({ action = '', handleFileChange }: Props) => {
   return (
-    <Uploader action={action} draggable accept='image/png, image/jpeg'>
+    <Uploader
+      action={action}
+      draggable
+      accept='image/png, image/jpeg'
+      onChange={handleFileChange}
+    >
       <div
         style={{
           height: 200,

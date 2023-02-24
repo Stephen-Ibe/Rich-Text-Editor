@@ -4,6 +4,7 @@ import './assets/css/index.css';
 import 'rsuite/dist/rsuite.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// import MyApp from './App2';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -30,8 +30,6 @@ const solutions = [
   },
 ] as const;
 
-const YOUR_API_KEY = 'AIzaSyDQGkmyu2yITkHOwInmYGhDJkUDCzs8IMw' as const;
-
 const EmbedVideoBlot = Quill.import('blots/block/embed');
 
 class VideoBlot extends EmbedVideoBlot {

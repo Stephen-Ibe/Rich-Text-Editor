@@ -110,7 +110,7 @@ function App() {
           <input
             type='text'
             placeholder='This is the title'
-            className='placeholder:font-semibold text-black placeholder-black placeholder:text-xl focus:outline-none font-semibold text-xl w-full py-2 placeholder:tracking-wider	'
+            className='placeholder:font-semibold text-black placeholder-black placeholder:text-3xl focus:outline-none font-semibold text-xl w-full py-2 placeholder:tracking-wider	'
           />
         </div>
         <div className='relative max-h-full'>

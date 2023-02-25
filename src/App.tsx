@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, Fragment } from 'react';
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
 import { FaPlus } from 'react-icons/fa';
 import { AiFillPicture } from 'react-icons/ai';
 import { TiVideo } from 'react-icons/ti';
@@ -7,6 +7,7 @@ import { RiBubbleChartFill } from 'react-icons/ri';
 import 'react-quill/dist/quill.snow.css';
 import { Popover, Transition } from '@headlessui/react';
 import { UploadPicture, UploadVideo } from './components/blocks';
+import axios from 'axios';
 
 const solutions = [
   {
@@ -29,17 +30,33 @@ const solutions = [
   },
 ] as const;
 
+const YOUR_API_KEY = 'AIzaSyDQGkmyu2yITkHOwInmYGhDJkUDCzs8IMw' as const;
+
+const EmbedVideoBlot = Quill.import('blots/block/embed');
+
+class VideoBlot extends EmbedVideoBlot {
+  static create(value: any) {
+    const node = super.create();
+    node.setAttribute('frameborder', '0');
+    node.setAttribute('allowfullscreen', true);
+    node.setAttribute('src', value);
+    return node;
+  }
+}
+
+Quill.register('formats/video', VideoBlot);
+
 function App() {
   const [content, setContent] = useState('');
   const [choice, setChoice] = useState<string | unknown | null>(null);
   const [imageUrl, setImageUrl] = useState('');
   const [selection, setSelection] = useState({ index: 0, length: 0 });
-  const editorRef = useRef<ReactQuill | null>(null);
+  const [quillRef, setQuillRef] = useState<ReactQuill | null>(null);
 
   const modules: Record<string, any> = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ['link', 'image'],
+      ['link', 'image', 'video'],
       [{ align: [] }],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
       [{ list: 'ordered' }, { list: 'bullet' }],
@@ -59,6 +76,7 @@ function App() {
     'blockquote',
     'list',
     'bullet',
+    'video',
   ];
 
   function closeModal() {
@@ -69,16 +87,12 @@ function App() {
     setChoice(choice);
   }
 
-  const insertVideo = (editor: any) => {
-    setSelection(editor.getSelection());
-  };
-
   const inputChange = (value: string) => {
     setContent(value);
   };
 
   const insertImage = () => {
-    const editor = editorRef.current?.getEditor();
+    const editor = quillRef?.getEditor();
     if (editor) {
       const range = selection.index + selection.length;
       editor.insertEmbed(range, 'image', imageUrl, 'user');
@@ -99,9 +113,38 @@ function App() {
     }
   };
 
+  const fetchVideoData = async (videoUrl: string) => {
+    const videoId = videoUrl.split('v=')[1];
+    const response = await axios.get(
+      `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${YOUR_API_KEY}&part=snippet,contentDetails`
+    );
+
+    const videoData = response.data.items[0];
+    const videoTitle = videoData.snippet.title;
+    const videoDuration = videoData.contentDetails.duration;
+    const videoEmbedCode = `<iframe src="https://www.youtube.com/embed/${videoId}" width="200" height="100" frameborder="0" allowfullscreen><iframe>`;
+
+    return {
+      title: videoTitle,
+      duration: videoDuration,
+      embedCode: videoEmbedCode,
+    };
+  };
+
+  const handleEmbedVideoClick = async (url: string) => {
+    const quill = quillRef?.getEditor();
+    const range = quill?.getSelection(true);
+
+    if (url && quill) {
+      quill.insertEmbed(range?.index || 0, 'video', url.trim());
+    }
+
+    closeModal();
+  };
+
   useEffect(() => {
-    editorRef?.current?.focus();
-  }, []);
+    quillRef?.focus();
+  }, [quillRef]);
 
   return (
     <>
@@ -120,7 +163,8 @@ function App() {
               onChange={inputChange}
               modules={modules}
               formats={formats}
-              ref={editorRef}
+              // ref={editorRef}
+              ref={(ref) => setQuillRef(ref)}
             />
           </div>
           {content !== '' && (
@@ -179,7 +223,12 @@ function App() {
           insertImage={insertImage}
         />
       )}
-      {choice === 'video' && <UploadVideo closeModal={closeModal} />}
+      {choice === 'video' && (
+        <UploadVideo
+          closeModal={closeModal}
+          handleEmbedVideoClick={handleEmbedVideoClick}
+        />
+      )}
     </>
   );
 }

@@ -1,14 +1,13 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Modal } from '../../common';
 
-type Props = { closeModal(): void };
+type Props = { closeModal(): void; handleEmbedVideoClick(url: string): void };
 
 const providers = [
   { id: 0, name: 'YouTube', value: 'youtube' },
-  { id: 1, name: 'Vimeo', value: 'vimeo' },
 ] as const;
 
-const UploadVideo = ({ closeModal }: Props) => {
+const UploadVideo = ({ closeModal, handleEmbedVideoClick }: Props) => {
   const [userChoice, setUserChoice] = useState<string>('');
   const [url, setUrl] = useState<string>('');
 
@@ -48,7 +47,7 @@ const UploadVideo = ({ closeModal }: Props) => {
         <div className='space-x-4 mt-4'>
           <button
             className='py-2 border-0 px-4 rounded bg-green-600 text-white font-semibold outline-none'
-            // onClick={insertImage}
+            onClick={() => handleEmbedVideoClick(url)}
           >
             Embed
           </button>

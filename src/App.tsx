@@ -6,7 +6,7 @@ import { TiVideo } from 'react-icons/ti';
 import { RiBubbleChartFill } from 'react-icons/ri';
 import 'react-quill/dist/quill.snow.css';
 import { Popover, Transition } from '@headlessui/react';
-import UploadPicture from './components/blocks/UploadPictures';
+import { UploadPicture, UploadVideo } from './components/blocks';
 
 const solutions = [
   {
@@ -179,6 +179,7 @@ function App() {
           insertImage={insertImage}
         />
       )}
+      {choice === 'video' && <UploadVideo closeModal={closeModal} />}
     </>
   );
 }

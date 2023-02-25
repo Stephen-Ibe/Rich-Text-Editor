@@ -56,7 +56,7 @@ function App() {
   const modules: Record<string, any> = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ['link', 'image', 'video'],
+      ['link', 'image', 'video', 'post'],
       [{ align: [] }],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
       [{ list: 'ordered' }, { list: 'bullet' }],
@@ -77,6 +77,7 @@ function App() {
     'list',
     'bullet',
     'video',
+    'post',
   ];
 
   function closeModal() {

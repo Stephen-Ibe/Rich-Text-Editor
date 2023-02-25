@@ -69,7 +69,7 @@ function App() {
     setChoice(choice);
   }
 
-  const handleChange = (editor: any) => {
+  const insertVideo = (editor: any) => {
     setSelection(editor.getSelection());
   };
 
